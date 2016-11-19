@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { StringUtilService } from 'string-utils';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+    private stringUtilService : StringUtilService;
+    public title : string;
+
+    constructor(@Inject(StringUtilService) stringUtilService) {
+
+        let spaceString = 'This String has some SPACES';
+
+        this.stringUtilService = stringUtilService;
+
+        this.title = `"${spaceString}" is now magically  "${this.stringUtilService.convertToUnderscoreCase(spaceString)}"`;
+    }
 }
